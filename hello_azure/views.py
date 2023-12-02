@@ -6,6 +6,7 @@ from django.templatetags.static import static
 import pickle
 import os
 from django.conf import settings
+from  azure.storage.blob  import  BlobServiceClient, BlobClient, ContainerClient
 
 def index(request):
     print('Request for index page received')
@@ -15,6 +16,19 @@ def index(request):
 
 @csrf_exempt
 def recommendations(request):
+
+    def get_weights_blob(blob_name):
+        connection_string = "DefaultEndpointsProtocol=https;AccountName=busadm742;AccountKey=c+P3idmYNO2f0qLHKzO6O4mTDOeztMCPOr2klmWkffQ+nSgP9CmF76uDG3LXxBup2f+F6pjZmMCv+AStxvGMFw==;EndpointSuffix=core.windows.net"
+        blob_client = BlobClient.from_connection_string(connection_string, 'models', blob_name)
+        downloader = blob_client.download_blob(0)
+
+        # Load to pickle
+        b = downloader.readall()
+        weights = pickle.loads(b)
+
+        return weights
+
+
     gen_map = {0: 'F', 1: 'M'}
     region_map = {5: 'North Western Region',
         0: 'East Anglian Region',
@@ -69,14 +83,9 @@ def recommendations(request):
 
         studied_credits = request.POST.get('studied_credits')
 
-        file_path1 = os.path.join(settings.STATIC_ROOT, 'model_avoid.pkl')
-        file_path2 = os.path.join(settings.STATIC_ROOT, 'model_rec.pkl')
+        model_avoid = get_weights_blob(blob_name = 'model_avoid.pkl')
 
-        model_avoid_pkl = open(file_path1, 'rb')
-        model_avoid = pickle.load(model_avoid_pkl)
-
-        model_rec_pkl = open(file_path2, 'rb')
-        model_rec = pickle.load(model_rec_pkl)
+        model_rec = get_weights_blob(blob_name = 'model_rec.pkl')
 
         test_arr = [[int(gender), int(region), int(education), int(imd), int(age), int(studied_credits), int(disability)]]
 
