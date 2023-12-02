@@ -1,3 +1,4 @@
 Django
 whitenoise
 azure.storage.blob
+scikit-learn
