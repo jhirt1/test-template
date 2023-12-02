@@ -6,3 +6,6 @@ import os
 ALLOWED_HOSTS = [os.environ['WEBSITE_HOSTNAME']] if 'WEBSITE_HOSTNAME' in os.environ else []
 
 DEBUG = False
+
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'  
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')

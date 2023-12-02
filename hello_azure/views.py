@@ -69,10 +69,13 @@ def recommendations(request):
 
         studied_credits = request.POST.get('studied_credits')
 
-        model_avoid_pkl = open(os.path.join(settings.BASE_DIR,'models/model_avoid.pkl'), 'rb')
+        file_path1 = os.path.join(settings.STATIC_ROOT, 'model_avoid.pkl')
+        file_path2 = os.path.join(settings.STATIC_ROOT, 'model_rec.pkl')
+
+        model_avoid_pkl = open(file_path1, 'rb')
         model_avoid = pickle.load(model_avoid_pkl)
 
-        model_rec_pkl = open(os.path.join(settings.BASE_DIR,'models/model_rec.pkl'), 'rb')
+        model_rec_pkl = open(file_path2, 'rb')
         model_rec = pickle.load(model_rec_pkl)
 
         test_arr = [[int(gender), int(region), int(education), int(imd), int(age), int(studied_credits), int(disability)]]
