@@ -1,22 +1,146 @@
 {% load static %}
 <!doctype html>
+
 <head>
-    <title>Hello Azure - Python Quickstart</title>
-    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
-    <link rel="icon"href="{% static 'favicon.ico' %}">
+  <title>Hirt - Course Recommender </title>
+  <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
+  <link rel="icon" href="{% static 'owl.ico' %}">
 </head>
+<style>
+  .div-1 {
+    background-color: #637074;
+    align-content: center;
+    font-size: large;
+    text-align: center;
+  }
+
+  .div-2 {
+    background-color: #ffffff;
+  }
+
+  .div-3 {
+    background-color: #bda107;
+  }
+
+  h1 {
+    text-align: center;
+    color: #F0CF65;
+  }
+
+  h2 {
+    text-align: center;
+    color: #F0CF65;
+  }
+
+  .column {
+    float: left;
+    width: 30%;
+  }
+
+  .column1 {
+    float: right;
+    width: 70%;
+  }
+
+  /* Clear floats after the columns */
+  .row:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+
+  .button {
+  background-color: #F0CF65; /* Green */
+  border: none;
+  color: #000000;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+</style>
+
 <html>
-   <body>
-     <main>
-        <div class="px-4 py-3 my-2 text-center">
-            <img class="d-block mx-auto mb-4" src="{% static 'images/azure-icon.svg' %}" alt="Azure Logo" width="192" height="192"/>
-            <!-- <img  src="/docs/5.1/assets/brand/bootstrap-logo.svg" alt="" width="72" height="57"> -->
-            <h1 class="display-6 fw-bold">Hello {{name}}</h1>
-            <p class="fs-5">
-                It is nice to meet you!
-            </p>
-            <a href="{% url 'index' %}" class="btn btn-primary btn-lg px-4 gap-3">Back home</a>
-          </div>
-     </main>      
-   </body>
+
+<body style="background-color:#212227;">
+  <div class="row">
+    <div class="column">
+      <img src="{% static 'images/owl.jpg' %}" width="500" height="600">
+    </div>
+    <div class="column1">
+      <div class="div-1">
+        <h1>Course Recommendation Model</h1>
+      </div>
+      <br>
+      <div class="div-1">
+        <h2>Learner Data</h2>
+      </div class="div-1">
+      <br>
+      <div class="div-1">
+        <style type="text/css">
+          .tg  {border-collapse:collapse;border-spacing:0;margin:0px auto;}
+          .tg td{border-color:white;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:16px;
+            overflow:hidden;padding:10px 5px;word-break:normal; color:white;}
+          .tg th{border-color:white;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:16px;
+            font-weight:normal;overflow:hidden;padding:10px 5px;word-break:normal;color:white;}
+          .tg .tg-0lax{text-align:left;vertical-align:top}
+          </style>
+          <table class="tg">
+          <thead>
+            <tr>
+              <th class="tg-0lax">Variable Name</th>
+              <th class="tg-0lax">Value</th>
+              <th class="tg-0lax">Encoded Value</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="tg-0lax">Gender</td>
+              <td class="tg-0lax">{{gender_enc}}</td>
+              <td class="tg-0lax">{{gender}}</td>
+            </tr>
+            <tr>
+              <td class="tg-0lax">Region</td>
+              <td class="tg-0lax">{{region_enc}}</td>
+              <td class="tg-0lax">{{region}}</td>
+            </tr>
+            <tr>
+              <td class="tg-0lax">Education</td>
+              <td class="tg-0lax">{{education_enc}}</td>
+              <td class="tg-0lax">{{education}}</td>
+            </tr>
+            <tr>
+              <td class="tg-0lax">Age</td>
+              <td class="tg-0lax">{{age_enc}}</td>
+              <td class="tg-0lax">{{age}}</td>
+            </tr>
+            <tr>
+              <td class="tg-0lax">Disability</td>
+              <td class="tg-0lax">{{disability_enc}}</td>
+              <td class="tg-0lax">{{disability}}</td>
+            </tr>
+            <tr>
+              <td class="tg-0lax">IMD Band</td>
+              <td class="tg-0lax">{{imd_enc}}</td>
+              <td class="tg-0lax">{{imd}}</td>
+            </tr>
+            <tr>
+              <td class="tg-0lax">Studied Credits</td>
+              <td class="tg-0lax">{{studied_credits}}</td>
+              <td class="tg-0lax">{{credits_enc}}</td>
+            </tr>
+          </tbody>
+          </table>
+      </div>
+      <br>
+      <div class="div-1">
+        <a href="{% url 'index' %}" class="button">New Student</a>
+      </div>
+    </div>
+  </div>
+</body>
+
 </html>

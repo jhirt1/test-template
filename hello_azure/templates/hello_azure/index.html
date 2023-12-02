@@ -1,32 +1,80 @@
 {% load static %}
 <!doctype html>
-<head>
-    <title>Hello Azure - Python Quickstart</title>
-    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
-    <link rel="icon"href="{% static 'favicon.ico' %}">
-</head>
-<html>
-   <body>
-     <main>
-        <div class="px-4 py-3 my-2 text-center">
-            <img class="d-block mx-auto mb-4" src="{% static 'images/azure-icon.svg' %}" alt="Azure Logo" width="192" height="192"/>
-            <!-- <img  src="/docs/5.1/assets/brand/bootstrap-logo.svg" alt="" width="72" height="57"> -->
-            <h1 class="display-6 fw-bold text-primary">Welcome to Azure</h1>            
-          </div>
-        <form method="post" action="hello">
-            {% csrf_token %}
-            <div class="col-md-6 mx-auto text-center">
-                <label for="name" class="form-label fw-bold fs-5">Please tell me your name?</label>
 
-                <!-- <p class="lead mb-2">Could you please tell me your name?</p> -->
-                <div class="d-grid gap-2 d-sm-flex justify-content-sm-center align-items-center my-1">
-                    <input type="text" class="form-control" id="name" name="name" style="max-width: 256px;">
-                  </div>            
-                <div class="d-grid gap-2 d-sm-flex justify-content-sm-center my-2">
-                  <button type="submit" class="btn btn-primary btn-lg px-4 gap-3">Say Hello</button>
-                </div>            
-            </div>
+<head>
+  <title>Hirt - Course Recommender </title>
+  <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
+  <link rel="icon" href="{% static 'owl.ico' %}">
+</head>
+<style>
+  .div-1 {
+    background-color: #637074;
+    align-content: center;
+    font-size: large;
+  }
+
+  .div-2 {
+    background-color: #ffffff;
+  }
+
+  .div-3 {
+    background-color: #bda107;
+  }
+
+  h1 {
+    text-align: center;
+    color: #F0CF65;
+  }
+
+  h2 {
+    text-align: center;
+    color: #F0CF65;
+  }
+
+  .column {
+    float: left;
+    width: 25%;
+  }
+
+  .column1 {
+    float: right;
+    width: 75%;
+  }
+
+  /* Clear floats after the columns */
+  .row:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+</style>
+
+<html>
+
+<body style="background-color:#212227;">
+  <div class="row">
+    <div class="column">
+      <img src="{% static 'images/owl.jpg' %}" width="400" height="500">
+    </div>
+    <div class="column1">
+      <div class="div-1">
+        <h1>Course Recommendation Model</h1>
+      </div>
+      <br>
+      <div class="div-1">
+        <h2>Learner Data</h2>
+      </div class="div-1">
+      <br>
+      <div class="div-1">
+        <form action="hello" method="post" align="center">
+          {% csrf_token %}
+          {{form.as_table}}
+          <br><br>
+          <input type="submit" value=Submit color="#F0CF65" name="main_form">
         </form>
-     </main>      
-   </body>
+      </div>
+    </div>
+  </div>
+</body>
+
 </html>
