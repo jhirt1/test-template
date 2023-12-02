@@ -67,13 +67,14 @@
 
 <body style="background-color:#212227;">
   <div class="row">
+    <div class="div-1">
+      <h1>Course Recommendation Model</h1>
+    </div>
+    <br>
     <div class="column">
-      <img src="{% static 'images/owl.jpg' %}" width="500" height="600">
+      <img src="{% static 'images/owl.jpg' %}" width="500" height="650">
     </div>
     <div class="column1">
-      <div class="div-1">
-        <h1>Course Recommendation Model</h1>
-      </div>
       <br>
       <div class="div-1">
         <h2>Learner Data</h2>
@@ -134,6 +135,11 @@
             </tr>
           </tbody>
           </table>
+      </div>
+      <br>
+      <div class="div-1">
+        <h2>Recommended Course: {{rec}}</h2>
+        <h2>Avoid Course: {{avo}}</h2>
       </div>
       <br>
       <div class="div-1">

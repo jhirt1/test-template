@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from .forms import InputForm
+import pickle
 
 def index(request):
     print('Request for index page received')
@@ -10,7 +11,7 @@ def index(request):
     return render(request, "hello_azure/index.html", context)
 
 @csrf_exempt
-def hello(request):
+def recommendations(request):
     gen_map = {0: 'F', 1: 'M'}
     region_map = {5: 'North Western Region',
         0: 'East Anglian Region',
@@ -42,6 +43,8 @@ def hello(request):
         0: '0-10%'}
     age_map = {1: '35-55', 0: '0-35', 2: '55<='}
     dis_map = {1: True, 0: False}
+
+    classes = {0: 'AAA', 1: 'BBB', 2: 'CCC', 3: 'DDD', 4: 'EEE', 5: 'FFF', 6: 'GGG'}
     if request.method == 'POST':
         gender = request.POST.get('gender')
         gender_enc = gen_map[int(gender)]
@@ -63,7 +66,25 @@ def hello(request):
 
         studied_credits = request.POST.get('studied_credits')
 
+        model_avoid_pkl = open('hello_azure/models/model_avoid.pkl', 'rb')
+        model_avoid = pickle.load(model_avoid_pkl)
 
+        model_rec_pkl = open('hello_azure/models/model_rec.pkl', 'rb')
+        model_rec = pickle.load(model_rec_pkl)
+
+        test_arr = [[int(gender), int(region), int(education), int(imd), int(age), int(studied_credits), int(disability)]]
+
+        recommended_class = model_rec.predict(test_arr)[0]
+        avoid_class = model_avoid.predict(test_arr)[0]
+
+        rec = classes[recommended_class]
+        avo = classes[avoid_class]
+
+        if rec == avo:
+            avo = '--'
+
+        print(rec)
+        print(avo)
         
         context = {'gender': gender,
             'gender_enc': gender_enc,
@@ -78,8 +99,10 @@ def hello(request):
             'imd': imd,
             'imd_enc': imd_enc,
             'studied_credits': studied_credits,
-            'credits_enc': studied_credits}
-        return render(request, 'hello_azure/hello.html', context)
+            'credits_enc': studied_credits,
+            'rec': rec,
+            'avo': avo}
+        return render(request, 'hello_azure/recommendations.html', context)
     else:
         return redirect('index')
 
