@@ -2,7 +2,10 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from .forms import InputForm
+from django.templatetags.static import static
 import pickle
+import os
+from django.conf import settings
 
 def index(request):
     print('Request for index page received')
@@ -66,10 +69,10 @@ def recommendations(request):
 
         studied_credits = request.POST.get('studied_credits')
 
-        model_avoid_pkl = open('hello_azure/models/model_avoid.pkl', 'rb')
+        model_avoid_pkl = open(os.path.join(settings.BASE_DIR,'models/model_avoid.pkl'), 'rb')
         model_avoid = pickle.load(model_avoid_pkl)
 
-        model_rec_pkl = open('hello_azure/models/model_rec.pkl', 'rb')
+        model_rec_pkl = open(os.path.join(settings.BASE_DIR,'models/model_rec.pkl'), 'rb')
         model_rec = pickle.load(model_rec_pkl)
 
         test_arr = [[int(gender), int(region), int(education), int(imd), int(age), int(studied_credits), int(disability)]]
